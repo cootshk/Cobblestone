@@ -3,11 +3,12 @@
   "id": "cobblestone",
   "version": "${version}",
   "name": "Cobblestone",
-  "description": "",
+  "description": "Batteries-included foundation for modding minecraft.",
   "authors": [
     "Cootshk"
   ],
   "contact": {
+    "issues": "https://github.com/cootshk/Cobblestone/issues",
     "discord": "https://cootshk.dev/discord"
   },
   "license": "GPL-3.0+",

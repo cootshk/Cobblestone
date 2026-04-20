@@ -1,6 +1,6 @@
 package dev.cootshk.cobblestone
 
-class ModNotBundledException : RuntimeException {
-    constructor(): super()
-    constructor(msg: String): super(msg)
+open class ModNotBundledException : RuntimeException {
+    internal constructor(): super()
+    internal constructor(msg: String): super(msg)
 }

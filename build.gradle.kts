@@ -102,6 +102,23 @@ tasks.jar {
     }
 }
 
+tasks.test {
+    failOnNoDiscoveredTests = false
+}
+
+loom {
+    runs {
+        create("testmodClient") {
+            client()
+            source(sourceSets.test.get())
+        }
+        create("testmodServer") {
+            server()
+            source(sourceSets.test.get())
+        }
+    }
+}
+
 // configure the maven publication
 publishing {
     publications {

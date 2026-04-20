@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "entrypoints": {
+    "client": [
+      "dev.cootshk.cobblestone.CobblestoneTestClient"
+    ]
+  },
+  "id": "cobblestone-test",
+  "version": "1.0.0",
+  "custom": {
+    "modmenu": {
+      "parent": "cobblestone"
+    }
+  }
+}
