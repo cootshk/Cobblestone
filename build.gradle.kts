@@ -52,17 +52,18 @@ repositories {
 val mcVersion = sc.current.version
 
 dependencies {
+    var count = 0
     // To change the versions see the gradle.properties file
     minecraft("com.mojang:minecraft:$mcVersion")
     implementation("net.fabricmc:fabric-loader:${project.property("loader_version")}")
     implementation("net.fabricmc:fabric-language-kotlin:${project.property("kotlin_loader_version")}")
 
     // Include all mods
-    fileTree("src/main/resources/included-mods/$mcVersion") {
-        include("*.modver")
-    }.forEach { file ->
-        implementation("maven.modrinth:${file.name.removeSuffix(".modver")}:${file.readText()}")
+    fileTree("${rootDir}/src/main/resources/included-mods/$mcVersion/").forEach { file ->
+        count++
+        include(runtimeOnly("maven.modrinth:${file.name.removeSuffix(".modver")}:${file.readText()}")!!)
     }
+    println("Included $count files for $mcVersion!")
 }
 
 
