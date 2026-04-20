@@ -4,26 +4,17 @@
   "version": "${version}",
   "name": "Cobblestone",
   "description": "",
-  "authors": [],
-  "contact": {},
-  "license": "GPL-3.0",
+  "authors": [
+    "Cootshk"
+  ],
+  "contact": {
+    "discord": "https://cootshk.dev/discord"
+  },
+  "license": "GPL-3.0+",
   "icon": "assets/cobblestone/icon.png",
   "environment": "*",
-  "entrypoints": {
-    "client": [
-      "dev.cootshk.cobblestone.client.CobblestoneClient"
-    ],
-    "main": [
-      "dev.cootshk.cobblestone.Cobblestone"
-    ]
-  },
-  "mixins": [
-    "cobblestone.mixins.json"
-  ],
   "depends": {
     "fabricloader": ">=${loader_version}",
-    "fabric-language-kotlin": ">=${kotlin_loader_version}",
-    "fabric-api": "*",
-    "minecraft": "${minecraft_version}"
+    "fabric-language-kotlin": ">=${kotlin_loader_version}"
   }
 }

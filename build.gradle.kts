@@ -14,7 +14,13 @@ base {
     archivesName.set(project.property("archives_base_name") as String)
 }
 
-val targetJavaVersion = 25
+val targetJavaVersion = when {
+    sc.current.parsed >= "26.0.0" -> 25
+    sc.current.parsed >= "1.20.5" -> 21
+    sc.current.parsed >= "1.18" -> 17
+    sc.current.parsed >= "1.17" -> 16
+    else -> 8
+}
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
     // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
@@ -43,16 +49,16 @@ repositories {
     }
 }
 
+val mcVersion = sc.current.version
+
 dependencies {
     // To change the versions see the gradle.properties file
-    minecraft("com.mojang:minecraft:${project.property("minecraft_version")}")
+    minecraft("com.mojang:minecraft:$mcVersion")
     implementation("net.fabricmc:fabric-loader:${project.property("loader_version")}")
     implementation("net.fabricmc:fabric-language-kotlin:${project.property("kotlin_loader_version")}")
 
-    implementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
-
     // Include all mods
-    fileTree("src/main/resources/included-mods") {
+    fileTree("src/main/resources/included-mods/$mcVersion") {
         include("*.modver")
     }.forEach { file ->
         implementation("maven.modrinth:${file.name.removeSuffix(".modver")}:${file.readText()}")
@@ -62,14 +68,14 @@ dependencies {
 
 tasks.processResources {
     inputs.property("version", project.version)
-    inputs.property("minecraft_version", project.property("minecraft_version"))
+    inputs.property("minecraft_version", mcVersion)
     inputs.property("loader_version", project.property("loader_version"))
     filteringCharset = "UTF-8"
 
     filesMatching("fabric.mod.json") {
         expand(
             "version" to project.version,
-            "minecraft_version" to project.property("minecraft_version")!!,
+            "minecraft_version" to mcVersion,
             "loader_version" to project.property("loader_version")!!,
             "kotlin_loader_version" to project.property("kotlin_loader_version")!!
         )
